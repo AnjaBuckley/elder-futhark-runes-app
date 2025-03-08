@@ -100,6 +100,9 @@ app.post('/api/evaluate-drawing', async (req, res) => {
     const runeSymbol = runeInfo ? runeInfo.symbol : '?';
     const description = runeDescriptions[runeName.toLowerCase()] || "has a distinctive shape";
     
+    // Create the image URL for the reference rune from GitHub
+    const runeImageUrl = `https://raw.githubusercontent.com/AnjaBuckley/elder-futhark-runes-app/main/public/images/runes/${runeName.toLowerCase()}.png`;
+    
     // Convert base64 data URL to a buffer if needed
     const base64Data = imageData.replace(/^data:image\/\w+;base64,/, '');
     
@@ -116,8 +119,10 @@ app.post('/api/evaluate-drawing', async (req, res) => {
         {
           role: "user",
           content: [
-            { type: "text", text: `Does this drawing match the Elder Futhark rune "${runeName}" (${runeSymbol})? Be critical and accurate in your assessment. Start your response with either 'Yes, this drawing matches' or 'No, this drawing does not match' followed by your detailed feedback.` },
-            { type: "image_url", image_url: { url: `data:image/png;base64,${base64Data}` } }
+            { type: "text", text: `Does this drawing match the Elder Futhark rune "${runeName}" (${runeSymbol})? Compare it with the reference image. Be critical and accurate in your assessment. Start your response with either 'Yes, this drawing matches' or 'No, this drawing does not match' followed by your detailed feedback.` },
+            { type: "image_url", image_url: { url: `data:image/png;base64,${base64Data}` } },
+            { type: "text", text: "Here is the correct reference image of the rune:" },
+            { type: "image_url", image_url: { url: runeImageUrl } }
           ]
         }
       ],
