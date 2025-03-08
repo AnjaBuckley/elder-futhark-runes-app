@@ -1,0 +1,27 @@
+{
+  "name": "elder-futhark-runes-app",
+  "version": "1.0.0",
+  "description": "An interactive web application for learning the Elder Futhark runic alphabet",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "runes",
+    "elder-futhark",
+    "learning",
+    "openai"
+  ],
+  "author": "Anja Buckley",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "openai": "^4.86.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
