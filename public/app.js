@@ -259,39 +259,40 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function evaluateDrawing() {
-        // In a real app, this would use image recognition or AI to compare the drawing
-        // For this demo, we'll simulate feedback
+        // Show loading state
+        drawingFeedback.className = 'feedback-container';
+        drawingFeedback.textContent = 'Evaluating your drawing...';
         
-        const feedback = simulateDrawingEvaluation();
+        // Get canvas image data
+        const imageData = canvas.toDataURL('image/png');
         
-        if (feedback.success) {
-            drawingFeedback.className = 'feedback-container success';
-        } else {
+        // Send to backend
+        fetch('/api/evaluate-drawing', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+                imageData,
+                runeName: currentTestRune.name
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                drawingFeedback.className = 'feedback-container success';
+            } else {
+                drawingFeedback.className = 'feedback-container error';
+            }
+            
+            drawingFeedback.textContent = data.message;
+            nextRuneBtn.classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error:', error);
             drawingFeedback.className = 'feedback-container error';
-        }
-        
-        drawingFeedback.textContent = feedback.message;
-        nextRuneBtn.classList.remove('hidden');
-    }
-
-    function simulateDrawingEvaluation() {
-        // This is a placeholder for actual drawing evaluation
-        // In a real app, you would use AI to compare the drawing with the correct rune
-        
-        // For demo purposes, randomly determine success/failure
-        const success = Math.random() > 0.5;
-        
-        if (success) {
-            return {
-                success: true,
-                message: `Great job! Your drawing of ${currentTestRune.name} looks correct.`
-            };
-        } else {
-            return {
-                success: false,
-                message: `Your drawing needs some improvement. The ${currentTestRune.name} rune typically has straighter lines. Try again!`
-            };
-        }
+            drawingFeedback.textContent = 'Error evaluating drawing. Please try again.';
+        });
     }
 
     function nextRune() {
