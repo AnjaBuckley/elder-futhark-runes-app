@@ -95,10 +95,9 @@ app.post('/api/evaluate-drawing', async (req, res) => {
   try {
     const { imageData, runeName } = req.body;
     
-    // Find the correct rune symbol and description
+    // Find the correct rune symbol
     const runeInfo = runesData.find(rune => rune.name.toLowerCase() === runeName.toLowerCase());
     const runeSymbol = runeInfo ? runeInfo.symbol : '?';
-    const description = runeDescriptions[runeName.toLowerCase()] || "has a distinctive shape";
     
     // Create the image URL for the reference rune from GitHub
     const runeImageUrl = `https://raw.githubusercontent.com/AnjaBuckley/elder-futhark-runes-app/main/public/images/runes/${runeName.toLowerCase()}.png`;
@@ -111,15 +110,19 @@ app.post('/api/evaluate-drawing', async (req, res) => {
       messages: [
         {
           role: "system", 
-          content: `You are an expert in Elder Futhark runes. Your task is to evaluate if a drawn image matches the specified rune. 
-                   Be strict in your evaluation - only consider it a match if the core shape and structure are correct. 
-                   The correct symbol for the rune "${runeName}" is "${runeSymbol}" which ${description}.
-                   Provide a score from 0-10 where 0 is completely wrong and 10 is perfect.`
+          content: `You are an encouraging teacher of Elder Futhark runes. Your task is to evaluate if a drawn image resembles the reference image of the specified rune.
+                   Be lenient in your evaluation - consider it a match if the basic shape is recognizable, even with imperfections.
+                   The correct symbol for the rune "${runeName}" is "${runeSymbol}".
+                   Provide a score from 0-10 where:
+                   - 4-10: The drawing is recognizable as the rune (consider this a success)
+                   - 0-3: The drawing is not recognizable (consider this needing improvement)
+                   Always start with positive feedback before suggesting improvements.
+                   Always include the correct rune symbol (${runeSymbol}) in your response and explain its key features.`
         },
         {
           role: "user",
           content: [
-            { type: "text", text: `Does this drawing match the Elder Futhark rune "${runeName}" (${runeSymbol})? Compare it with the reference image. Be critical and accurate in your assessment. Start your response with either 'Yes, this drawing matches' or 'No, this drawing does not match' followed by your detailed feedback.` },
+            { type: "text", text: `Does this drawing resemble the Elder Futhark rune "${runeName}" (${runeSymbol})? Compare it with the reference image. Be encouraging and focus on similarities rather than minor differences. Start your response with either 'Yes, this drawing matches' or 'Not quite, but you're making progress' followed by your detailed feedback. Always include the correct rune symbol (${runeSymbol}) and describe its key features.` },
             { type: "image_url", image_url: { url: `data:image/png;base64,${base64Data}` } },
             { type: "text", text: "Here is the correct reference image of the rune:" },
             { type: "image_url", image_url: { url: runeImageUrl } }
@@ -131,8 +134,13 @@ app.post('/api/evaluate-drawing', async (req, res) => {
     
     const feedback = response.choices[0].message.content;
     
-    // More precise success determination
-    const success = feedback.toLowerCase().startsWith("yes, this drawing matches");
+    // More lenient success determination
+    const success = feedback.toLowerCase().startsWith("yes, this drawing matches") || 
+                   feedback.toLowerCase().includes("good job") ||
+                   feedback.toLowerCase().includes("well done") ||
+                   feedback.toLowerCase().includes("excellent") ||
+                   (feedback.toLowerCase().includes("score") && 
+                    /score.*?([4-9]|10)\/10/.test(feedback.toLowerCase()));
     
     res.json({ 
       success, 
