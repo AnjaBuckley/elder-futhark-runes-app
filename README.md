@@ -6,7 +6,7 @@ An interactive web application for learning the Elder Futhark runic alphabet, fe
 
 ## Live Demo
 
-Try the app live at: [https://elder-futhark-runes-app.vercel.app](https://elder-futhark-runes-app.vercel.app)
+Try the app live at: https://elder-futhark-runes.vercel.app/
 
 ## Features
 
