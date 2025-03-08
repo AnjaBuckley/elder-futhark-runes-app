@@ -1,27 +1,90 @@
 # Elder Futhark Runes Learning App
 
-An interactive web application for learning the Elder Futhark runic alphabet.
+An interactive web application for learning the Elder Futhark runic alphabet, featuring AI-powered chat assistance through OpenAI integration.
+
+![Elder Futhark Runes](https://example.com/screenshot.png) <!-- Replace with an actual screenshot of your app -->
 
 ## Features
 
-- **Chat Interface**: Ask questions about runes and get informative responses
-- **Learning Cards**: Interactive flip cards showing all 24 Elder Futhark runes
+- **AI-Powered Chat Interface**: Ask questions about runes and get informative responses powered by OpenAI
+- **Interactive Learning Cards**: Flip cards showing all 24 Elder Futhark runes with their meanings and Latin equivalents
 - **Drawing Test**: Practice drawing runes and get feedback on your attempts
 
 ## Technologies Used
 
-- HTML5
-- CSS3 (with animations and responsive design)
-- Vanilla JavaScript
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Backend**: Node.js, Express
+- **AI Integration**: OpenAI API (GPT-3.5 Turbo)
+- **Animations**: CSS transitions for card flips and UI elements
+
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/AnjaBuckley/elder-futhark-runes-app.git
+   cd elder-futhark-runes-app
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Create a `.env` file in the root directory with your OpenAI API key:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   PORT=3000
+   ```
+
+4. Start the server:
+   ```
+   npm start
+   ```
+
+5. Open your browser and navigate to `http://localhost:3000`
 
 ## How to Use
 
-1. Visit the home page to chat about runes or navigate to the learning section
-2. On the learning page, click any rune card to flip it and see details
-3. Test your knowledge by drawing runes on the test page
+### Home Page
+- Type questions about Elder Futhark runes in the chat interface
+- Click on example prompts for quick information
+- Use the "Start Learning Runes" button to navigate to the learning section
 
-## Future Improvements
+### Learning Page
+- Browse through all 24 Elder Futhark runes
+- Click on any card to flip it and reveal details about the rune
+- Learn the name, Latin equivalent, and meaning of each rune
 
-- Integration with ChatGPT API for more intelligent responses
-- Advanced drawing recognition using machine learning
+### Test Page
+- Practice drawing runes with your mouse or finger
+- Submit your drawing for evaluation
+- Receive feedback on your drawing accuracy
+- Click "Next Rune" to practice another random rune
+
+## Future Enhancements
+
+- Drawing recognition using AI to provide more accurate feedback
 - User accounts to track learning progress
+- Audio pronunciation of rune names
+- Mobile app version
+- Expanded historical context and usage examples
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Information about Elder Futhark runes sourced from historical texts and academic resources
+- OpenAI for providing the API that powers the chat functionality
+- All contributors and testers who helped improve this application
