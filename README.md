@@ -2,7 +2,12 @@
 
 An interactive web application for learning the Elder Futhark runic alphabet, featuring AI-powered chat assistance through OpenAI integration.
 
+<img width="1436" alt="Screenshot 2025-03-29 at 16 12 50" src="https://github.com/user-attachments/assets/2dd65a02-3c58-40a7-9339-c6c79bd88b57" />
+
+
 <img width="1346" alt="Screenshot 2025-03-08 at 12 40 29" src="https://github.com/user-attachments/assets/5791259f-86c0-4756-9c53-f97dc09d357c" />
+
+<img width="858" alt="Screenshot 2025-03-29 at 16 13 48" src="https://github.com/user-attachments/assets/b04da9c5-ce15-40fd-8ea9-9541ef43fe04" />
 
 ## Live Demo
 
